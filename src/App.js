@@ -20,97 +20,51 @@ export default class Widget extends React.Component {
     this.setState({ nodes })
   }
   exportJson = () => {
-    // let json = {};
-    // let maxNestedNo = 0;
-    // this.state.checked.forEach(node => {
-    //   let nodeStructure = node.split(":");
-    //   if (nodeStructure.length > maxNestedNo) {
-    //     maxNestedNo = nodeStructure.length
-    //   }
-    // })
 
-    // this.state.checked.forEach(node => {
-    //   //META DATA
-    //   let nodeStructure = node.split(":");
-    //   let nodeProject = nodeStructure[0];
-    //   let nodeCity = nodeStructure[1]
-    //   let nodeCityCode = `${nodeProject}-${nodeCity}`;
-    //   let cityInfo = cities.find(city => {
-    //     return city.projectId === +nodeProject && city.id === +nodeCity
-    //   })
-    //   //ADDING CITY INFO
-    //   json[nodeCityCode] = {
-    //     ...cityInfo
-    //   }
-    //   let currentObject = {}
-
-
-    //   console.log('===>>', nodeStructure.reverse().reduce((previousValue, currentValue, index) => {
-    //     console.log('current', currentValue)
-    //     if (index === 0) {
-    //       return (previousValue[currentValue] = true)
-    //     } else {
-
-    //       return (previousValue[currentValue] = { ...previousValue })
-    //     }
-    //   }, {}))
-
-    //   nodeStructure.reverse().forEach((element, index) => {
-    //     if (nodeStructure.length - 1 !== index) {
-    //       if (index === 0) {
-
-    //         currentObject[element] = true
-    //       } else if (nodeStructure.length - 2 === index) {
-    //         currentObject[`${element}:${nodeStructure[index + 1]}`] = { ...currentObject }
-    //         // console.log('==>', currentObject, 'We should delete ', nodeStructure[index - 1])
-    //         delete currentObject[nodeStructure[index - 1]]
-    //       }
-    //       else {
-    //         currentObject[element] = { ...currentObject[element], ...currentObject }
-    //         // console.log('==>', currentObject, 'We should delete ', nodeStructure[index - 1])
-    //         delete currentObject[nodeStructure[index - 1]]
-
-    //       }
-
-    //       // console.log('current ob', element, currentObject)
-    //     }
-    //     // console.log('==>>CURRENT OBJ ', currentObject)
-    //   })
-    //   // json[nodeCityCode] = { ...json[nodeCityCode], ...currentObject[nodeCityCode] }
-    // })
-
-    // console.log('==>>', json)
-    // let jsonObject = {}
-    // let maxNestedNo = 0;
-    // this.state.checked.forEach(node => {
-    //   let nodeStructure = node.split(":");
-    //   if (nodeStructure.length > maxNestedNo) {
-    //     maxNestedNo = nodeStructure.length
-    //   }
-    // })
-    // let allNodes = [...this.state.checked]
-    // allNodes.forEach((node, index) => {
-
-    // })
+    let maxNestedNo = 0;
     let json = {}
     this.state.checked.forEach(node => {
-      console.log('==?', node.split(':'))
-      let nodeStructure = node.split(':')
-      let currentObject = {}
-
-      nodeStructure.reverse().forEach((key, index) => {
-        if (index === 0) {
-          currentObject[key] = true
-        } else {
-          currentObject[key] = { ...currentObject }
-          delete currentObject[nodeStructure[index - 1]]
-        }
-      })
-      console.log('==>CRR OBJ', currentObject)
-
-
-
+      let nodeStructure = node.split(":");
+      if (nodeStructure.length > maxNestedNo) {
+        maxNestedNo = nodeStructure.length
+      }
     })
+    debugger;
+    for (let step = maxNestedNo - 1; step > 0; step--) {
+      for (let nodeNumber = 0; nodeNumber < this.state.checked.length; nodeNumber++) {
+        let currentNode = this.state.checked[nodeNumber];
+        let nodeStructure = currentNode.split(':');
+
+        if (nodeStructure[step] && step !== 0) {
+          let currentKey = nodeStructure[step]
+          let parent = nodeStructure[step - 1]
+          //Check if last node
+          if (nodeStructure.length === step + 1) {
+            let value = { [currentKey]: true }
+            //Check if parent exist to copy old vals and add new val
+            if (json[parent]) {
+              json[parent] = { ...json[parent], ...value }
+            } else {
+              json[parent] = { ...value }
+            }
+          } else {
+
+            //check if parent key exist 
+            if (!json[parent]) {
+              json[parent] = {}
+            }
+
+            //check if  current key exist at parent and if not copy it and delete old
+            if (!json[parent][currentKey]) {
+              json[parent][currentKey] = { ...json[currentKey] }
+              delete json[currentKey]
+            }
+
+          }
+        }
+      }
+    }
+    console.log('JSON =>', json)
 
   }
 
@@ -120,6 +74,7 @@ export default class Widget extends React.Component {
     return (
       <div className='App'>
         <button className='exportBtn' onClick={this.exportJson}>Export</button>
+
         <Tabs style={{ width: '50%' }}>
           <TabList>
             <Tab>General Config</Tab>

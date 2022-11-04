@@ -72,7 +72,23 @@ export const cities = [
         projectTitle: 'Orascom'
     },
 ]
+let projects = [
+    {
+        projectId: 1,
+        projectTitle: 'TMG'
 
+    },
+    {
+        projectId: 2,
+        projectTitle: 'Tatweer'
+
+    },
+    {
+        projectId: 3,
+        projectTitle: 'Orascom'
+
+    },
+]
 
 export const template = {
     generalConfig: {
@@ -105,13 +121,147 @@ export const template = {
         title: "Mobile",
         id: "mobile",
         children: {
-            payment: {
-                id: 'payment',
-                title: "Payment"
+            navbar: {
+                id: 'navbar',
+                title: "Navbar",
+                children: {
+                    home: {
+                        id: 'home',
+                        title: "Home"
+                    },
+                    services: {
+                        id: 'services',
+                        title: "Services"
+                    },
+                    accessControl: {
+                        id: 'accessControl',
+                        title: "Access Control"
+                    },
+                    payment: {
+                        id: 'payment',
+                        title: "Payment"
+                    },
+                    setting: {
+                        id: 'setting',
+                        title: "Settings"
+                    },
+                    more: {
+                        id: 'more',
+                        title: "More"
+                    },
+                    menu: {
+                        id: 'menu',
+                        title: "Menu"
+                    },
+                    cityGuide: {
+                        id: 'cityGuide',
+                        title: "City Guide"
+                    },
+                }
             },
-            accessControl: {
-                id: 'accessControl',
-                title: "Access Control"
+            menu: {
+                id: 'menu',
+                title: "Menu",
+                children: {
+                    news: {
+                        id: 'news',
+                        title: "News"
+                    },
+                    events: {
+                        id: 'events',
+                        title: "Events"
+                    },
+                    promotions: {
+                        id: 'promotions',
+                        title: "Promotions"
+                    },
+                    transportaion: {
+                        id: 'transportaion',
+                        title: "Transportation"
+                    },
+                    pollsSurveys: {
+                        id: 'pollsSurveys',
+                        title: "Polls/Surveys"
+                    },
+                    helpCenter: {
+                        id: 'helpCenter',
+                        title: "Help Center"
+                    },
+                    setting: {
+                        id: 'setting',
+                        title: "Setting"
+                    },
+                    gateAccessCards: {
+                        id: 'gateAccessCards',
+                        title: "Gate Access Cards"
+                    },
+                    digitalWallet: {
+                        id: 'digitalWallet',
+                        title: "Digital Wallet"
+                    },
+                    realEstate: {
+                        id: 'realEstate',
+                        title: "Real Estate"
+                    },
+                    cityGuide: {
+                        id: 'cityGuide',
+                        title: "City Guide"
+                    },
+                    contactUs: {
+                        id: 'contactUs',
+                        title: "Contac tUs"
+                    },
+                    directory: {
+                        id: 'directory',
+                        title: "Directory"
+                    },
+                    aboutUs: {
+                        id: 'aboutUs',
+                        title: "About Us"
+                    },
+                }
+            },
+            home: {
+                id: 'home',
+                title: "Home",
+                children: {
+                    ourProject: {
+                        id: 'ourProject',
+                        title: "Our Projects"
+                    },
+                    quickLinks: {
+                        id: 'quickLinks',
+                        title: "Quick Links"
+                    },
+                    thingsToDo: {
+                        id: 'thingsToDo',
+                        title: "Things To Do"
+                    },
+                    requestServices: {
+                        id: 'requestServices',
+                        title: "Request Services"
+                    },
+                    duePayment: {
+                        id: 'duePayment',
+                        title: "Due Payments"
+                    },
+                    events: {
+                        id: 'events',
+                        title: "Events"
+                    },
+                    cityGuideCategory: {
+                        id: 'cityGuideCategory',
+                        title: "City Guide Category"
+                    },
+                    news: {
+                        id: 'news',
+                        title: "News"
+                    },
+                    posts: {
+                        id: 'posts',
+                        title: 'Posts'
+                    }
+                }
             }
         }
     },
@@ -140,13 +290,22 @@ export const template = {
 }
 export const initNodes = () => {
     let nodes = []
-    cities.forEach(city => {
+    // cities.forEach(city => {
+    //     let cityNode = {
+    //         value: `${city.projectId}:${city.id}`,
+    //         label: `${city.projectTitle} - ${city.title}`,
+    //         children: []
+    //     }
+    //     Object.values(template).forEach(node => cityNode.children.push(generateNodes(node, `${city.projectId}-${city.id}`)))
+    //     nodes.push(cityNode)
+    // })
+    projects.forEach(city => {
         let cityNode = {
-            value: `${city.projectId}:${city.id}`,
-            label: `${city.projectTitle} - ${city.title}`,
+            value: `${city.projectId}`,
+            label: `${city.projectTitle}`,
             children: []
         }
-        Object.values(template).forEach(node => cityNode.children.push(generateNodes(node, `${city.projectId}-${city.id}`)))
+        Object.values(template).forEach(node => cityNode.children.push(generateNodes(node, `${city.projectId}`)))
         nodes.push(cityNode)
     })
     return nodes

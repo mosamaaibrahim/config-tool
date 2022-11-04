@@ -72,7 +72,7 @@ export const cities = [
         projectTitle: 'Orascom'
     },
 ]
-let projects = [
+export const projects = [
     {
         projectId: 1,
         projectTitle: 'TMG'

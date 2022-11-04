@@ -101,7 +101,7 @@ export const template = {
             },
             cityGuide: {
                 id: 'cityGuide',
-                title: '"City Guide"'
+                title: 'City Guide'
             },
             promotions: {
                 id: 'promotions',

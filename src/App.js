@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { createRef } from 'react';
 import CheckboxTree from 'react-checkbox-tree';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import { faSquareCheck, faSquare, faSquareMinus, faPlusSquare, faMinusSquare, faFolder, faFolderOpen, faFile } from '@fortawesome/free-regular-svg-icons'
@@ -16,6 +16,7 @@ export default class Widget extends React.Component {
     expanded: [],
     nodes: []
   };
+  btnRef = React.createRef()
   componentDidMount = () => {
     let nodes = initNodes();
     this.setState({ nodes })
@@ -27,7 +28,13 @@ export default class Widget extends React.Component {
       let projectJson = exportNodesArrayToJson(projectArray)
       json = { ...json, ...projectJson }
     })
-    console.log('===>>>JSON ', json)
+
+    console.log('====>>>>', json)
+    // var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
+    // // what to return in order to show download window?
+
+    // this.btnRef.current.setAttribute("href", "data:" + data);
+    // this.btnRef.current.setAttribute("download", "config.json");
 
   }
 
@@ -36,7 +43,7 @@ export default class Widget extends React.Component {
 
     return (
       <div className='App'>
-        <button className='exportBtn' onClick={this.exportJson}>Export</button>
+        <a className='exportBtn' ref={this.btnRef} onClick={this.exportJson}>Export</a>
 
         <Tabs style={{ width: '50%' }}>
           <TabList>

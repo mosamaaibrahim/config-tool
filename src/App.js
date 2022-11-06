@@ -57,7 +57,7 @@ export default class Widget extends React.Component {
       <div className='App'>
         <a className='exportBtn' ref={this.btnRef} onClick={this.exportJson}>Export</a>
 
-        <Tabs style={{ width: '50%' }}>
+        <Tabs style={{ width: '80%' }}>
           <TabList>
             <Tab>General Config</Tab>
             <Tab>Cities Config</Tab>

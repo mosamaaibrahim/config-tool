@@ -47,7 +47,8 @@ export class CitiesConfig extends Component {
                 <TabList>
                     {
                         Object.values(this.state.projectNodes).map(city =>
-                            <Tab key={city.cityProjectId}>{`${city.title}`}</Tab>
+                            <Tab key={city.cityProjectId}>{`${city.title} - ${city.projectTitle}
+                            `}</Tab>
                         )
                     }
                 </TabList>

@@ -97,7 +97,18 @@ export const template = {
         children: {
             event: {
                 id: 'event',
-                title: "Event"
+                title: "Event",
+                selectable: true,
+                children: {
+                    register: {
+                        id: 'register',
+                        title: 'register'
+                    },
+                    planing: {
+                        id: 'planing',
+                        title: 'Planing'
+                    }
+                }
             },
             cityGuide: {
                 id: 'cityGuide',
@@ -124,6 +135,7 @@ export const template = {
             navbar: {
                 id: 'navbar',
                 title: "Navbar",
+                selectable: true,
                 children: {
                     home: {
                         id: 'home',
@@ -162,6 +174,7 @@ export const template = {
             menu: {
                 id: 'menu',
                 title: "Menu",
+                selectable: true,
                 children: {
                     news: {
                         id: 'news',
@@ -224,6 +237,7 @@ export const template = {
             home: {
                 id: 'home',
                 title: "Home",
+                // selectable: true,
                 children: {
                     ourProject: {
                         id: 'ourProject',
@@ -303,8 +317,10 @@ export const initNodes = () => {
         let cityNode = {
             value: `${city.projectId}`,
             label: `${city.projectTitle}`,
+            showCheckbox: false,
             children: []
         }
+
         Object.values(template).forEach(node => cityNode.children.push(generateNodes(node, `${city.projectId}`)))
         nodes.push(cityNode)
     })
@@ -314,11 +330,15 @@ const generateNodes = (parent, id) => {
     let node = {}
     node.label = parent.title;
     node.value = `${id}:${parent.id}`;
+    node.showCheckbox = parent.selectable ? true : false
+
 
     if (parent.children) {
         node.children = []
         Object.values(parent.children).forEach(parent => node.children.push(generateNodes(parent, node.value)))
 
+    } else {
+        node.showCheckbox = true
     }
     return { ...node }
 

@@ -39,7 +39,18 @@ export default class Widget extends React.Component {
 
   }
 
+  handelTreeCheck = (checked, targetNode) => {
+    console.log('=->', targetNode)
+    if (targetNode.isParent && targetNode.checked) {
+      targetNode.children.forEach(childNode => checked.push(childNode.value))
+    } else if (targetNode.isParent && !targetNode.checked) {
+      checked = checked.filter(childNode => !childNode.includes(targetNode.value))
+    } else if (targetNode.checked && !targetNode.isParent && !checked.find(singleNode => singleNode === targetNode.parent.value)) {
+      checked.push(targetNode.parent.value)
+    }
 
+    this.setState({ checked })
+  }
   render() {
 
     return (
@@ -57,7 +68,8 @@ export default class Widget extends React.Component {
               nodes={this.state.nodes}
               checked={this.state.checked}
               expanded={this.state.expanded}
-              onCheck={checked => this.setState({ checked })}
+              noCascade={true}
+              onCheck={this.handelTreeCheck}
               onExpand={expanded => this.setState({ expanded })}
               icons={{
                 check: <FontAwesomeIcon className="rct-icon rct-icon-check" icon={faSquareCheck} />,
@@ -74,7 +86,7 @@ export default class Widget extends React.Component {
             />
           </TabPanel>
           <TabPanel>
-            <CitiesConfig projectNodes={this.state.nodes} />
+            <CitiesConfig projectNodes={this.state.nodes} projectsChecked={this.state.checked} />
           </TabPanel>
         </Tabs>
 

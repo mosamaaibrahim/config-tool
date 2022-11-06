@@ -31,7 +31,13 @@ export class CitiesConfig extends Component {
                 exclude: [],
                 cityProjectId: cityProjectId
             }
-            createdNodes[cityProjectId].nodes = this.props.projectNodes.find(projectNode => +projectNode.value === +city.projectId)?.children
+            debugger;
+            // createdNodes[cityProjectId].nodes = this.props.projectNodes.find(projectNode => +projectNode.value === +city.projectId)?.children
+            createdNodes[cityProjectId].nodes = this.props.projectsChecked.filter(key => key.includes(`${city.projectId}:`)).map(node => {
+                return { label: node.split(":").join(" --> "), value: node }
+            });
+            createdNodes[cityProjectId].checked = this.props.projectsChecked.filter(key => key.includes(`${city.projectId}:`))
+
         })
         this.setState({ projectNodes: createdNodes })
     }
@@ -41,19 +47,23 @@ export class CitiesConfig extends Component {
                 <TabList>
                     {
                         Object.values(this.state.projectNodes).map(city =>
-                            <Tab>{`${city.title}`}</Tab>
+                            <Tab key={city.cityProjectId}>{`${city.title}`}</Tab>
                         )
                     }
                 </TabList>
                 {
                     Object.values(this.state.projectNodes).map(city =>
-                        <TabPanel>
+                        <TabPanel key={city.cityProjectId}>
                             <CheckboxTree
                                 nodes={this.state.projectNodes[city.cityProjectId].nodes}
                                 checked={this.state.projectNodes[city.cityProjectId].checked}
                                 expanded={this.state.projectNodes[city.cityProjectId].expanded}
-                                onCheck={checked => this.setState({ checked })}
-                                onExpand={expanded => this.setState({ expanded })}
+                                onCheck={checked => {
+                                    let projectNodes = this.state.projectNodes
+                                    projectNodes[city.cityProjectId].checked = checked
+                                    this.setState({ projectNodes })
+                                }}
+                                onExpand={expanded => { }}
                                 icons={{
                                     check: <FontAwesomeIcon className="rct-icon rct-icon-check" icon={faSquareCheck} />,
                                     uncheck: <FontAwesomeIcon className="rct-icon rct-icon-uncheck" icon={faSquare} />,

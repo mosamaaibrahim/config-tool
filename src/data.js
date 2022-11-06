@@ -331,7 +331,7 @@ const generateNodes = (parent, id) => {
     node.label = parent.title;
     node.value = `${id}:${parent.id}`;
     node.showCheckbox = parent.selectable ? true : false
-
+    node.canBeSelected = parent.selectable
 
     if (parent.children) {
         node.children = []

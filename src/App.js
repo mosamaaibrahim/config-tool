@@ -45,7 +45,7 @@ export default class Widget extends React.Component {
       targetNode.children.forEach(childNode => checked.push(childNode.value))
     } else if (targetNode.isParent && !targetNode.checked) {
       checked = checked.filter(childNode => !childNode.includes(targetNode.value))
-    } else if (targetNode.checked && !targetNode.isParent && !checked.find(singleNode => singleNode === targetNode.parent.value)) {
+    } else if (targetNode.checked && !targetNode.isParent && targetNode.parent.canBeSelected && !checked.find(singleNode => singleNode === targetNode.parent.value)) {
       checked.push(targetNode.parent.value)
     }
 

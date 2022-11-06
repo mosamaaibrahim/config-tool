@@ -9,6 +9,7 @@ import { initNodes, projects } from './data'
 import { exportNodesArrayToJson } from './helpers'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import CitiesConfig from './Components/CitiesConfig';
 
 export default class Widget extends React.Component {
   state = {
@@ -48,6 +49,7 @@ export default class Widget extends React.Component {
         <Tabs style={{ width: '50%' }}>
           <TabList>
             <Tab>General Config</Tab>
+            <Tab>Cities Config</Tab>
           </TabList>
 
           <TabPanel>
@@ -70,6 +72,9 @@ export default class Widget extends React.Component {
                 leaf: <FontAwesomeIcon className="rct-icon rct-icon-leaf-close" icon={faFile} />
               }}
             />
+          </TabPanel>
+          <TabPanel>
+            <CitiesConfig projectNodes={this.state.nodes} />
           </TabPanel>
         </Tabs>
 

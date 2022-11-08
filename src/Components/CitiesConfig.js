@@ -62,6 +62,7 @@ export class CitiesConfig extends Component {
                                 onCheck={checked => {
                                     let projectNodes = this.state.projectNodes
                                     projectNodes[city.cityProjectId].checked = checked
+                                    projectNodes[city.cityProjectId].exclude = projectNodes[city.cityProjectId].nodes.filter(singleNode => !checked.includes(singleNode.value)).map(singleNode => singleNode.value)
                                     this.setState({ projectNodes })
                                 }}
                                 onExpand={expanded => { }}

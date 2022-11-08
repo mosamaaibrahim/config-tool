@@ -24,23 +24,34 @@ export default class Widget extends React.Component {
   }
   exportJson = (e) => {
     let json = {}
-    projects.forEach(project => {
-      let projectArray = this.state.checked.filter(node => node.includes(`${project.projectId}:`))
-      let projectJson = exportNodesArrayToJson(projectArray)
-      json = { ...json, ...projectJson }
+    // projects.forEach(project => {
+    //   let projectArray = this.state.checked.filter(node => node.includes(`${project.projectId}:`))
+    //   let projectJson = exportNodesArrayToJson(projectArray)
+    //   json = { ...json, ...projectJson }
+    // })
+    this.state.checked.forEach(node => {
+      let nodeArray = node.split(':')
+      let projectKey = nodeArray.shift();
+      let nodeKey = nodeArray.join(':')
+      if (json[projectKey]) {
+        json[projectKey].keys.push(nodeKey)
+      } else {
+        json[projectKey] = {
+          keys: [nodeKey]
+        }
+      }
     })
-
     console.log('====>>>>', json)
-    // var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
-    // // what to return in order to show download window?
+    var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
+    // what to return in order to show download window?
 
-    // this.btnRef.current.setAttribute("href", "data:" + data);
-    // this.btnRef.current.setAttribute("download", "config.json");
+    this.btnRef.current.setAttribute("href", "data:" + data);
+    this.btnRef.current.setAttribute("download", "config.json");
 
   }
 
   handelTreeCheck = (checked, targetNode) => {
-    console.log('=->', targetNode)
+    // console.log('=->', targetNode)
     if (targetNode.isParent && targetNode.checked) {
       targetNode.children.forEach(childNode => checked.push(childNode.value))
     } else if (targetNode.isParent && !targetNode.checked) {

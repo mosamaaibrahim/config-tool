@@ -59,18 +59,18 @@ export const cities = [
         projectId: 2,
         projectTitle: 'Tatweer'
     },
-    {
-        title: 'Marasi',
-        id: 2,
-        projectId: 2,
-        projectTitle: 'Tatweer'
-    },
-    {
-        title: 'Fooka Bay',
-        id: 1,
-        projectId: 3,
-        projectTitle: 'Orascom'
-    },
+    // {
+    //     title: 'Marasi',
+    //     id: 2,
+    //     projectId: 2,
+    //     projectTitle: 'Tatweer'
+    // },
+    // {
+    //     title: 'Fooka Bay',
+    //     id: 1,
+    //     projectId: 3,
+    //     projectTitle: 'Orascom'
+    // },
 ]
 export const projects = [
     {
@@ -83,11 +83,11 @@ export const projects = [
         projectTitle: 'Tatweer'
 
     },
-    {
-        projectId: 3,
-        projectTitle: 'Orascom'
+    // {
+    //     projectId: 3,
+    //     projectTitle: 'Orascom'
 
-    },
+    // },
 ]
 
 export const template = {
@@ -98,21 +98,10 @@ export const template = {
             event: {
                 id: 'event',
                 title: "Event",
-                selectable: true,
-                children: {
-                    register: {
-                        id: 'register',
-                        title: 'register'
-                    },
-                    planing: {
-                        id: 'planing',
-                        title: 'Planing'
-                    }
-                }
             },
             cityGuide: {
                 id: 'cityGuide',
-                title: 'City Guide'
+                title: 'City Guide',
             },
             promotions: {
                 id: 'promotions',
@@ -167,7 +156,7 @@ export const template = {
                     },
                     cityGuide: {
                         id: 'cityGuide',
-                        title: "City Guide"
+                        title: "City Guide",
                     },
                 }
             },

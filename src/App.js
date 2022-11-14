@@ -5,7 +5,7 @@ import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import { faSquareCheck, faSquare, faSquareMinus, faPlusSquare, faMinusSquare, faFolder, faFolderOpen, faFile } from '@fortawesome/free-regular-svg-icons'
 import { faChevronRight, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import './App.css'
-import { initNodes, projects } from './data'
+import { initNodes, projects, template } from './data'
 import { exportNodesArrayToJson } from './helpers'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -68,7 +68,7 @@ export default class Widget extends React.Component {
       <div className='App'>
         <a className='exportBtn' ref={this.btnRef} onClick={this.exportJson}>Export</a>
 
-        <Tabs style={{ width: '80%' }}>
+        <Tabs style={{ width: '40%' }}>
           <TabList>
             <Tab>General Config</Tab>
             <Tab>Cities Config</Tab>

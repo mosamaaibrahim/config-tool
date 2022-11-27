@@ -10,12 +10,14 @@ import { exportNodesArrayToJson } from './helpers'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import CitiesConfig from './Components/CitiesConfig';
+import SortableList from './Components/SortableList';
 
 export default class Widget extends React.Component {
   state = {
     checked: [],
     expanded: [],
-    nodes: []
+    nodes: [],
+    sortedKeys: {}
   };
   btnRef = React.createRef()
   componentDidMount = () => {
@@ -40,6 +42,13 @@ export default class Widget extends React.Component {
           keys: [nodeKey]
         }
       }
+
+
+    })
+
+    Object.values(this.state.sortedKeys).forEach(node => {
+      json[node.projectId].sortedKeys = [...node.items]
+      console.log(json[node.projectId])
     })
     console.log('====>>>>', json)
     var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
@@ -72,6 +81,7 @@ export default class Widget extends React.Component {
           <TabList>
             <Tab>General Config</Tab>
             <Tab>Cities Config</Tab>
+            <Tab>Sorting</Tab>
           </TabList>
 
           <TabPanel>
@@ -98,6 +108,9 @@ export default class Widget extends React.Component {
           </TabPanel>
           <TabPanel>
             <CitiesConfig projectNodes={this.state.nodes} projectsChecked={this.state.checked} />
+          </TabPanel>
+          <TabPanel>
+            <SortableList parentItems={this.state.checked} onSort={sortedKeys => this.setState({ sortedKeys })} />
           </TabPanel>
         </Tabs>
 

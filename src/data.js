@@ -282,7 +282,14 @@ export const template = {
             },
             payment: {
                 id: 'payment',
-                title: "Payment"
+                title: "Payment",
+                selectable: true,
+                children: {
+                    addPayment: {
+                        title: 'Add Payment',
+                        id: 'addPayment'
+                    }
+                }
             },
             personalizedNotification: {
                 id: 'personalizedNotification',

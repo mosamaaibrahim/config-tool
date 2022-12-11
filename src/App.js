@@ -17,7 +17,8 @@ export default class Widget extends React.Component {
     checked: [],
     expanded: [],
     nodes: [],
-    sortedKeys: {}
+    sortedKeys: {},
+    excludedKeys: {}
   };
   btnRef = React.createRef()
   componentDidMount = () => {
@@ -50,6 +51,21 @@ export default class Widget extends React.Component {
       json[node.projectId].sortedKeys = [...node.items]
       console.log(json[node.projectId])
     })
+
+
+    //ADding excluded keys
+
+    for (const key in this.state.excludedKeys) {
+      let projectKey = key.split(":")[0]
+      let cityKey = key.split(":")[1]
+      if (json[projectKey].excludedKeys) {
+        json[projectKey].excludedKeys[cityKey] = this.state.excludedKeys[key]
+      } else {
+        json[projectKey].excludedKeys = {}
+        json[projectKey].excludedKeys[cityKey] = this.state.excludedKeys[key]
+      }
+
+    }
     console.log('====>>>>', json)
     var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
     // what to return in order to show download window?
@@ -70,6 +86,10 @@ export default class Widget extends React.Component {
     }
 
     this.setState({ checked })
+  }
+  setCitiesExcludedKeys = excludedKeys => {
+    // console.log('==>>', excludedKeys)
+    this.setState({ excludedKeys: { ...excludedKeys } })
   }
   render() {
 
@@ -107,7 +127,7 @@ export default class Widget extends React.Component {
             />
           </TabPanel>
           <TabPanel>
-            <CitiesConfig projectNodes={this.state.nodes} projectsChecked={this.state.checked} />
+            <CitiesConfig projectNodes={this.state.nodes} projectsChecked={this.state.checked} setCitiesExcludedKeys={this.setCitiesExcludedKeys} />
           </TabPanel>
           <TabPanel>
             <SortableList parentItems={this.state.checked} onSort={sortedKeys => this.setState({ sortedKeys })} />

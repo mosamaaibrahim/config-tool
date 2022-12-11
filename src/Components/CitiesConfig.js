@@ -15,12 +15,11 @@ export class CitiesConfig extends Component {
         this.initCityNodes();
     }
     componentDidUpdate = (prevProps, prevState) => {
+        debugger;
         if (JSON.stringify(prevProps.projectNodes) !== JSON.stringify(this.props.projectNodes)) {
             this.initCityNodes();
         }
-        if (JSON.stringify(this.state.projectNode) !== JSON.stringify(prevState.projectNodes)) {
-            this.updateNodes()
-        }
+
     }
     updateNodes = () => {
         let excludedNodes = {}
@@ -29,6 +28,7 @@ export class CitiesConfig extends Component {
             excludedNodes[key] = excluded
         }
         console.log('====>>', excludedNodes)
+        this.props.setCitiesExcludedKeys(excludedNodes)
     }
     initCityNodes = () => {
         let createdNodes = {}
@@ -74,7 +74,7 @@ export class CitiesConfig extends Component {
                                     let projectNodes = this.state.projectNodes
                                     projectNodes[city.cityProjectId].checked = checked
                                     projectNodes[city.cityProjectId].exclude = projectNodes[city.cityProjectId].nodes.filter(singleNode => !checked.includes(singleNode.value)).map(singleNode => singleNode.value)
-                                    this.setState({ projectNodes })
+                                    this.setState({ projectNodes }, () => this.updateNodes())
                                 }}
                                 onExpand={expanded => { }}
                                 icons={{

@@ -18,6 +18,17 @@ export class CitiesConfig extends Component {
         if (JSON.stringify(prevProps.projectNodes) !== JSON.stringify(this.props.projectNodes)) {
             this.initCityNodes();
         }
+        if (JSON.stringify(this.state.projectNode) !== JSON.stringify(prevState.projectNodes)) {
+            this.updateNodes()
+        }
+    }
+    updateNodes = () => {
+        let excludedNodes = {}
+        for (const key in this.state.projectNodes) {
+            let excluded = this.state.projectNodes[key]?.nodes.filter(node => !this.state.projectNodes[key]?.checked.includes(node.value)).map(node => node.value)
+            excludedNodes[key] = excluded
+        }
+        console.log('====>>', excludedNodes)
     }
     initCityNodes = () => {
         let createdNodes = {}

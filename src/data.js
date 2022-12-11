@@ -294,6 +294,10 @@ export const template = {
             personalizedNotification: {
                 id: 'personalizedNotification',
                 title: "Personalized Notification"
+            },
+            gaDashboard: {
+                id: 'gaDashboard',
+                title: 'Google Analytics Dashboard'
             }
         }
     }
